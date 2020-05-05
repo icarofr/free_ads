@@ -1,1 +1,0 @@
-/home/user/wac/scripts/adminer.php
