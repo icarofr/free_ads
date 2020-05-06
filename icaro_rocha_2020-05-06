@@ -1,0 +1,12 @@
+Tàches prevues:
+>Finir les deux premières parties du sujet.
+
+Taches effectués:
+>Finir la première partie du sujet.
+
+Problèmes rencontrés:
+>CRUD en CLI est plus compliqué a faire et faut utiliser « artisan tinker » pour l'éxécution de chaque commande;
+>Recode de la partie CRUD en conformant avec les conventions standard Laravel (et mise en place de les 7 restful controller actions);
+
+Taches prevues pour le jour suivant:
+>Finir la deuxième partie du sujet.
