@@ -2,12 +2,11 @@
 
 namespace App\Http\Controllers;
 
-use App\User;
+use App\Ad;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
-use Illuminate\Support\Facades\Hash;
 
-class UserController extends Controller
+class AdController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -16,7 +15,9 @@ class UserController extends Controller
      */
     public function index()
     {
-        //
+        // dd('a');
+        $ad = Ad::latest()->get();
+        return view('ad.index', compact("ad"));
     }
 
     /**
@@ -26,7 +27,7 @@ class UserController extends Controller
      */
     public function create()
     {
-        return redirect()->route('register');
+        return view("ad.create");
     }
 
     /**
@@ -37,58 +38,61 @@ class UserController extends Controller
      */
     public function store(Request $request)
     {
+        $ad = new Ad();
+        $ad->author = Auth::id();
+        $ad->title = $request->title;
+        $ad->description = $request->description;
+        $ad->photo = $request->photo->hashName();
+        $request->photo->store('public/ads');
+        $ad->price = $request->price;
+        $ad->tags = $request->tags;
+        $ad->save();
+
+        return redirect('/ad/');
     }
 
     /**
      * Display the specified resource.
      *
-     * @param  \App\User  $user
+     * @param  \App\Ad  $ad
      * @return \Illuminate\Http\Response
      */
-    public function show(User $user)
+    public function show(Ad $ad)
     {
-        $user = json_decode(json_encode($user));
-        return view("user.show", compact('user'));
+        return view('ad.show', compact('ad'));
     }
 
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  \App\User  $user
+     * @param  \App\Ad  $ad
      * @return \Illuminate\Http\Response
      */
-    public function edit(User $user)
+    public function edit(Ad $ad)
     {
-        $user = json_decode(json_encode($user));
-        return view('user.edit', compact('user'));
+        //
     }
 
     /**
      * Update the specified resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @param  \App\User  $user
+     * @param  \App\Ad  $ad
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, User $user)
+    public function update(Request $request, Ad $ad)
     {
-        $user->name = request('name');
-        $user->email = request('email');
-        $user->password = Hash::make(request('password'));
-        $user->save();
-        return redirect('/user/' . $user->id);
+        //
     }
 
     /**
      * Remove the specified resource from storage.
      *
-     * @param  \App\User  $user
+     * @param  \App\Ad  $ad
      * @return \Illuminate\Http\Response
      */
-    public function destroy(User $user)
+    public function destroy(Ad $ad)
     {
-        $user->forceDelete();
-        Auth::logout();
-        return redirect('/home');
+        //
     }
 }
