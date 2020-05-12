@@ -20,7 +20,7 @@
                     </div>
 
                     <div class="form-group row">
-                        <label for="description" class="col-md-4 text-md-right">Description</label>
+                        <label for="description" class="col-md-4 text-md-right">Description:</label>
 
                         <div class="col-md-6">
                             {{$adItem->description}}
@@ -28,19 +28,15 @@
                     </div>
 
                     <div class="form-group row">
-                        <label for="photo" class="col-md-4 text-md-right">Picture</label>
+                        <label for="photo" class="col-md-4 text-md-right">Picture:</label>
 
                         <div class="col-md-6">
-                            <img class="img-responsive" style="
-                            max-width: 400px; 
-                            border: 1px solid silver;
-                            padding: 5px;" 
-                            src="{{asset('/storage/ads/' . $adItem->photo)}}" alt="Ad #{{$adItem->id}}">
+                            <img class="img-fluid img-thumbnail" src="{{asset('/storage/ads/' . $adItem->photo)}}" alt="Ad #{{$adItem->id}}">
                         </div>
                     </div>
 
                     <div class="form-group row">
-                        <label for="price" class="col-md-4 text-md-right">Price (€)</label>
+                        <label for="price" class="col-md-4 text-md-right">Price:</label>
 
                         <div class="col-md-6">
                             {{$adItem->price}}€
@@ -48,7 +44,7 @@
                     </div>
 
                     <div class="form-group row">
-                        <label for="tags" class="col-md-4 text-md-right">Tags (CSV)</label>
+                        <label for="tags" class="col-md-4 text-md-right">Tags:</label>
 
                         <div class="col-md-6">
                             <?php

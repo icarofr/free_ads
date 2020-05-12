@@ -70,7 +70,7 @@ class AdController extends Controller
      */
     public function edit(Ad $ad)
     {
-        //
+        return view("ad.edit", compact("ad"));
     }
 
     /**
@@ -82,7 +82,15 @@ class AdController extends Controller
      */
     public function update(Request $request, Ad $ad)
     {
-        //
+        $ad->title = $request->title;
+        $ad->description = $request->description;
+        $ad->photo = $request->photo->hashName();
+        $request->photo->store('public/ads');
+        $ad->price = $request->price;
+        $ad->tags = $request->tags;
+        $ad->save();
+
+        return redirect('/ad/' . $ad->id);
     }
 
     /**

@@ -19,49 +19,31 @@
                     </div>
 
                     <div class="form-group row">
-                        <label for="description" class="col-md-4 text-md-right">Description</label>
+                        <label for="description" class="col-md-4 text-md-right">Description:</label>
 
                         <div class="col-md-6">
                             {{$ad->description}}
-
-                            @error('description')
-                            <span class="invalid-feedback" role="alert">
-                                <strong>{{ $message }}</strong>
-                            </span>
-                            @enderror
                         </div>
                     </div>
 
                     <div class="form-group row">
-                        <label for="photo" class="col-md-4 text-md-right">Picture</label>
+                        <label for="photo" class="col-md-4 text-md-right">Picture:</label>
 
                         <div class="col-md-6">
-                            <input id="photo" type="file" class="form-control @error('photo') is-invalid @enderror" name="photo" required autofocus>
-
-                            @error('photo')
-                            <span class="invalid-feedback" role="alert">
-                                <strong>{{ $message }}</strong>
-                            </span>
-                            @enderror
+                            <img class="img-fluid img-thumbnail" src="{{asset('/storage/ads/' . $ad->photo)}}" alt="Ad #{{$ad->id}}">
                         </div>
                     </div>
 
                     <div class="form-group row">
-                        <label for="price" class="col-md-4 text-md-right">Price (€)</label>
+                        <label for="price" class="col-md-4 text-md-right">Price:</label>
 
                         <div class="col-md-6">
                             {{$ad->price}}€
-
-                            @error('price')
-                            <span class="invalid-feedback" role="alert">
-                                <strong>{{ $message }}</strong>
-                            </span>
-                            @enderror
                         </div>
                     </div>
 
                     <div class="form-group row">
-                        <label for="tags" class="col-md-4 text-md-right">Tags (CSV)</label>
+                        <label for="tags" class="col-md-4 text-md-right">Tags:</label>
 
                         <div class="col-md-6">
                             <?php
@@ -69,12 +51,6 @@
                             $tags = implode("<br>", $tags);
                             echo $tags;
                             ?>
-
-                            @error('tags')
-                            <span class="invalid-feedback" role="alert">
-                                <strong>{{ $message }}</strong>
-                            </span>
-                            @enderror
                         </div>
                     </div>
                 </div>
