@@ -1,6 +1,8 @@
 @extends('layouts.app')
 
 @section('content')
+<script src="/js/jquery.js"></script>
+<link rel="stylesheet" href="/css/tachyons.css">
 <div class="container">
     <div class="row justify-content-center">
         <div class="col-md-8">
@@ -40,12 +42,62 @@
                         </div>
 
                         <div class="form-group row">
-                            <label for="photo" class="col-md-4 col-form-label text-md-right">Picture</label>
+                            <div class="col-md-4 col-form-label text-md-right">
+                                <div class="pointer f6 grow no-underline br-pill ph3 mb2 dib white bg-green" onclick="showNext()">+</div>
+                            </div>
 
                             <div class="col-md-6">
-                                <input id="photo" type="file" class="form-control @error('photo') is-invalid @enderror" name="photo" required autofocus>
+                                <input id="photo" type="file" class="form-control @error('photo') is-invalid @enderror" name="photo" autofocus>
 
                                 @error('photo')
+                                <span class="invalid-feedback" role="alert">
+                                    <strong>{{ $message }}</strong>
+                                </span>
+                                @enderror
+                            </div>
+                        </div>
+
+                        <div class="form-group row dn photo2">
+                            <div class="col-md-4 col-form-label text-md-right">
+                                <div class="pointer f6 grow no-underline br-pill ph3 mb2 dib white bg-red" onclick="removeNext()">-</div>
+                            </div>
+
+                            <div class="col-md-6">
+                                <input id="photo2" type="file" class="form-control @error('photo2') is-invalid @enderror" name="photo2" autofocus>
+
+                                @error('photo2')
+                                <span class="invalid-feedback" role="alert">
+                                    <strong>{{ $message }}</strong>
+                                </span>
+                                @enderror
+                            </div>
+                        </div>
+
+                        <div class="form-group photo3 row dn">
+                            <div class="col-md-4 col-form-label text-md-right">
+                                <div class="pointer f6 grow no-underline br-pill ph3 mb2 dib white bg-red" onclick="removeNext()">-</div>
+                            </div>
+
+                            <div class="col-md-6">
+                                <input id="photo3" type="file" class="form-control @error('photo3') is-invalid @enderror" name="photo3" autofocus>
+
+                                @error('photo3')
+                                <span class="invalid-feedback" role="alert">
+                                    <strong>{{ $message }}</strong>
+                                </span>
+                                @enderror
+                            </div>
+                        </div>
+
+                        <div class="form-group row photo4 dn">
+                            <div class="col-md-4 col-form-label text-md-right">
+                                <div class="pointer f6 grow no-underline br-pill ph3 mb2 dib white bg-red" onclick="removeNext()">-</div>
+                            </div>
+
+                            <div class="col-md-6">
+                                <input id="photo4" type="file" class="form-control @error('photo4') is-invalid @enderror" name="photo4" autofocus>
+
+                                @error('photo4')
                                 <span class="invalid-feedback" role="alert">
                                     <strong>{{ $message }}</strong>
                                 </span>
@@ -94,4 +146,17 @@
         </div>
     </div>
 </div>
+<script>
+    let counter = 1;
+
+    function showNext() {
+        counter++;
+        $(".photo" + counter).removeClass("dn");
+    }
+
+    function removeNext() {
+        $(".photo" + counter).addClass("dn");
+        counter--;
+    }
+</script>
 @endsection

@@ -28,11 +28,15 @@
                     </div>
 
                     <div class="form-group row">
-                        <label for="photo" class="col-md-4 text-md-right">Picture:</label>
-
+                        @foreach (["photo", "photo2", "photo3", "photo4"] as $key => $photo)
+                        <label for="photo" class="col-md-4 text-md-right">{{$key == 0 ? "View:" : ""}}</label>
+                        @if (!is_null($adItem->$photo))
                         <div class="col-md-6">
-                            <img class="img-fluid img-thumbnail" src="{{asset('/storage/ads/' . $adItem->photo)}}" alt="Ad #{{$adItem->id}}">
+                            <img class="img-fluid img-thumbnail" src="{{asset('/storage/ads/' . $adItem->$photo)}}" alt="Ad #{{$adItem->id}}">
                         </div>
+                        @endif
+                        @endforeach
+                        
                     </div>
 
                     <div class="form-group row">
@@ -41,6 +45,18 @@
                         <div class="col-md-6">
                             {{$adItem->price}}€
                         </div>
+                    </div>
+
+                    <div class="form-group row">
+                        <label for="createdAt" class="col-md-4 text-md-right">Created at:</label>
+
+                        <div class="col-md-6">{{$adItem->created_at}}</div>
+                    </div>
+
+                    <div class="form-group row">
+                        <label for="updatedAt" class="col-md-4 text-md-right">Updated at:</label>
+
+                        <div class="col-md-6">{{$adItem->updated_at}}</div>
                     </div>
 
                     <div class="form-group row">

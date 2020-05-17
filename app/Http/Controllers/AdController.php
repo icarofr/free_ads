@@ -42,8 +42,30 @@ class AdController extends Controller
         $ad->author = Auth::id();
         $ad->title = $request->title;
         $ad->description = $request->description;
-        $ad->photo = $request->photo->hashName();
-        $request->photo->store('public/ads');
+        if (is_null($request->photo)) {
+            $ad->photo = NULL;
+        } else {
+            $ad->photo = $request->photo->hashName();
+            $request->photo->store('public/ads');
+        }
+        if (is_null($request->photo2)) {
+            $ad->photo2 = NULL;
+        } else {
+            $ad->photo2 = $request->photo2->hashName();
+            $request->photo2->store('public/ads');
+        }
+        if (is_null($request->photo3)) {
+            $ad->photo3 = NULL;
+        } else {
+            $ad->photo3 = $request->photo3->hashName();
+            $request->photo3->store('public/ads');
+        }
+        if (is_null($request->photo4)) {
+            $ad->photo4 = NULL;
+        } else {
+            $ad->photo4 = $request->photo4->hashName();
+            $request->photo4->store('public/ads');
+        }
         $ad->price = $request->price;
         $ad->tags = $request->tags;
         $ad->save();
@@ -84,8 +106,30 @@ class AdController extends Controller
     {
         $ad->title = $request->title;
         $ad->description = $request->description;
-        $ad->photo = $request->photo->hashName();
-        $request->photo->store('public/ads');
+        if (is_null($request->photo)) {
+            $ad->photo = NULL;
+        } else {
+            $ad->photo = $request->photo->hashName();
+            $request->photo->store('public/ads');
+        }
+        if (is_null($request->photo2)) {
+            $ad->photo2 = NULL;
+        } else {
+            $ad->photo2 = $request->photo2->hashName();
+            $request->photo2->store('public/ads');
+        }
+        if (is_null($request->photo3)) {
+            $ad->photo3 = NULL;
+        } else {
+            $ad->photo3 = $request->photo3->hashName();
+            $request->photo3->store('public/ads');
+        }
+        if (is_null($request->photo4)) {
+            $ad->photo4 = NULL;
+        } else {
+            $ad->photo4 = $request->photo4->hashName();
+            $request->photo4->store('public/ads');
+        }
         $ad->price = $request->price;
         $ad->tags = $request->tags;
         $ad->save();
@@ -101,6 +145,27 @@ class AdController extends Controller
      */
     public function destroy(Ad $ad)
     {
-        //
+        $ad->forceDelete();
+        return redirect('/ad');
+    }
+
+    public function search(Request $request)
+
+    {
+        // dd($request->direction);
+        // if (!is_null($request->tags)) {
+        $tags = explode(",", $request->tags);
+
+        $ad = Ad::where("title", "ilike", "%$request->title%")
+            ->where("description", "ilike", "%$request->description%")
+            ->where("price", ">=", !is_null($request->minPrice) ? $request->minPrice : 0)
+            ->where("price", "<=", !is_null($request->maxPrice) ? $request->maxPrice : 2000000000)
+            ->where(function ($query) use ($tags) {
+                foreach ($tags as $tag) {
+                    $query->orWhere("tags", "ilike", "%$tag%");
+                }
+            })->orderBy($request->orderBy, $request->direction == "on" ? "desc" : "asc")
+            ->get();
+        return view('ad.index', compact("ad"));
     }
 }

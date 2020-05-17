@@ -19,6 +19,9 @@ class CreateAdTable extends Migration
             $table->string('title');
             $table->text('description');
             $table->string('photo')->nullable();
+            $table->string('photo2')->nullable();
+            $table->string('photo3')->nullable();
+            $table->string('photo4')->nullable();
             $table->integer('price');
             $table->string('tags')->nullable();
             $table->timestamps();
